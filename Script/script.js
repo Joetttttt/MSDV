@@ -82,7 +82,6 @@ const AppData = {
     ],
 };
 
-
 const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
 let monthlyChart = new Chart(monthlyCtx, {
     type: 'bar',
