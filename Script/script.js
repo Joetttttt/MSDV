@@ -58,7 +58,6 @@ const AppData = {
         { label: 'Academic Dishonesty',   count: 34, color: '#f97316' },
     ],
 
-    // ── Minor offense breakdown ──
     minorOffenses: [
         { label: 'Tardiness',              count: 72, color: '#f59e0b' },
         { label: 'Improper Uniform',       count: 58, color: '#fbbf24' },
