@@ -117,7 +117,6 @@ function updateMonthlyChart() {
     monthlyChart.update();
 }
 
-
 const mmCtx = document.getElementById('minorMajorChart').getContext('2d');
 new Chart(mmCtx, {
     type: 'line',
