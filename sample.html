@@ -582,6 +582,101 @@
         .tag-soe { background: rgba(217,119,6,0.09); color: #b45309; }
 
         canvas { display: block; }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+            }
+            .main-content {
+                margin-left: 80px;
+            }
+            .sidebar_content li a span {
+                display: none;
+            }
+            .cards-grid,
+            .chart-row,
+            .dept-row,
+            .donut-row {
+                grid-template-columns: 1fr;
+            }
+            .filter-row {
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: fixed;
+                width: 100%;
+                height: auto;
+                top: 0;
+                left: 0;
+                right: 0;
+                padding: 0 12px;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .main-content {
+                margin-left: 0;
+                margin-top: 108px;
+            }
+            .navbar {
+                padding: 14px 18px;
+            }
+            .content {
+                padding: 20px 18px 32px;
+            }
+            .panel-header,
+            .filter-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-row {
+                width: 100%;
+            }
+            .chart-panel,
+            .stat-card,
+            .recent-panel {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar h1 {
+                font-size: 15px;
+            }
+            .panel-title,
+            .panel-sub,
+            .badge,
+            .filter-select,
+            .dept-name,
+            .dept-count,
+            .legend-text,
+            .legend-val,
+            .ju-table thead tr th {
+                font-size: 10px;
+            }
+            .section-label {
+                margin: 24px 10px 12px;
+            }
+            .adm_logo {
+                gap: 10px;
+            }
+            .adm_logo h2 {
+                font-size: 14px;
+            }
+            .adm_logo p {
+                font-size: 9px;
+            }
+            .sidebar_content li a {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+        }
     </style>
 </head>
 <body>

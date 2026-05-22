@@ -9,7 +9,8 @@ body{
 }
 
 .btn{
-    width: 315px;
+    width: 100%;
+    max-width: 315px;
     padding: 10px;
     font-size: 16px;
     background-color: #ad0808;
@@ -23,6 +24,8 @@ body{
     box-shadow: 0 5px 10px rgba(252, 0, 0, 0.4);
 }
 .formbox{
+    width: min(380px, 100%);
+    margin: 0 auto;
     background-color: rgb(255, 255, 255);
     border-top: 6px solid #b40404;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
@@ -57,6 +60,36 @@ body{
     outline: 1px solid #000000;
     box-shadow: none;
     
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        padding: 20px 0;
+    }
+    .mcclogo {
+        position: fixed;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .formbox {
+        padding: 24px 18px;
+    }
+    .form-label,
+    .form-control,
+    .btn {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .formbox {
+        padding: 20px 14px;
+    }
+    .loginlogo {
+        width: 130px;
+        height: 130px;
+    }
 }
 
 
