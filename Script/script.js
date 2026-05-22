@@ -49,7 +49,6 @@ const AppData = {
         beed: { all: { 1:0,  2:0,  3:19 }, 1:{ 1:0,  2:0,  3:6  }, 2:{ 1:0,  2:0, 3:5  }, 3:{ 1:0,  2:0,  3:4  }, 4:{ 1:0, 2:0, 3:4 } },
     },
 
-
     majorOffenses: [
         { label: 'Physical Assault',      count: 28, color: '#ef4444' },
         { label: 'Possession of Weapons', count: 15, color: '#f87171' },
