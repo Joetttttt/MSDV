@@ -1,19 +1,13 @@
-// ── CHART DEFAULTS ──
 Chart.defaults.color = '#9099b5';
 Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
 
 const GRID_COLOR = 'rgba(0,0,0,0.05)';
 const TICK_COLOR = '#9099b5';
 
-// ════════════════════════════════════════════
-//  APP DATA — single source of truth
-//  Add data for new sections/pages here
-// ════════════════════════════════════════════
 const AppData = {
 
     months: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
 
-    // ── Monthly total violations per year ──
     monthlyViolations: {
         2024: [22, 18, 30, 27, 14, 19, 35, 40, 28, 33, 25, 21],
         2023: [15, 12, 20, 18, 11, 16, 28, 31, 22, 26, 18, 14],
@@ -146,10 +140,6 @@ new Chart(mmCtx, {
     }
 });
 
-
-// ════════════════════════════════════════════
-//  VIOLATIONS PER DEPARTMENT LINE CHART
-// ════════════════════════════════════════════
 const deptLineCtx = document.getElementById('deptLineChart').getContext('2d');
 let deptLineChart = new Chart(deptLineCtx, {
     type: 'line',
@@ -215,10 +205,6 @@ function updateDeptLineChart() {
     deptLineChart.update();
 }
 
-
-// ════════════════════════════════════════════
-//  DEPT FILTER BARS
-// ════════════════════════════════════════════
 function updateDeptBars() {
     const course    = document.getElementById('deptCourseFilter').value;
     const yrLevel   = document.getElementById('deptYearLevelFilter').value;
@@ -260,10 +246,6 @@ function updateDeptBars() {
 }
 updateDeptBars();
 
-
-// ════════════════════════════════════════════
-//  DEPT BAR CHART
-// ════════════════════════════════════════════
 const deptCtx = document.getElementById('deptChart').getContext('2d');
 window.deptBarChart = new Chart(deptCtx, {
     type: 'bar',
@@ -292,4 +274,3 @@ window.deptBarChart = new Chart(deptCtx, {
         }
     }
 });
-
