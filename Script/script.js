@@ -83,9 +83,7 @@ const AppData = {
 };
 
 
-// ════════════════════════════════════════════
-//  MONTHLY VIOLATIONS BAR CHART
-// ════════════════════════════════════════════
+
 const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
 let monthlyChart = new Chart(monthlyCtx, {
     type: 'bar',
