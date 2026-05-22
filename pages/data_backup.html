@@ -4,424 +4,133 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Backup</title>
+    <title>Import Data</title>
     <link rel="stylesheet" href="../CSS/admin_dashboard.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(12px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .content {
-            font-family: 'DM Sans', sans-serif;
-            background: #f0f4f9;
-            min-height: 100%;
-            padding: 32px 36px 48px;
-            box-sizing: border-box;
-        }
-
-        .backup-wrapper {
-            max-width: 1200px;
-            animation: fadeUp 0.38s ease both;
-        }
-
-        /* Section label */
-        .section-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 36px 0 14px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #94a3b8;
-        }
-
-        .section-label:first-child { margin-top: 0; }
-
-        .section-label::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #e2e8f0;
-        }
-
-        .section-label i { font-size: 11px; color: #3b82f6; }
-
-        /* Panel */
-        .panel {
+        .db-export-card {
             background: #fff;
-            border-radius: 14px;
             border: 1px solid #e2e8f0;
-            overflow: hidden;
+            border-radius: 12px;
+            padding: 24px 28px 20px;
+            margin-bottom: 24px;
         }
-
-        .panel-header {
+        .db-export-card-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 22px;
-            border-bottom: 1px solid #f1f5f9;
-            flex-wrap: wrap;
-            gap: 12px;
-            background: #fafbfc;
+            margin-bottom: 4px;
         }
-
-        .panel-title {
-            font-size: 13.5px;
-            font-weight: 600;
+        .db-export-card-header h2 {
+            font-size: 15px;
+            font-weight: 700;
             color: #1e293b;
+            margin: 0;
             display: flex;
             align-items: center;
-            gap: 8px;
-            white-space: nowrap;
+            gap: 9px;
         }
-
-        .panel-title i { color: #3b82f6; }
-
-        /* Filter bar */
-        .filter-bar {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            align-items: center;
+        .db-export-card-header h2 i { color: #16a34a; font-size: 15px; }
+        .db-export-card-desc {
+            font-size: 12.5px;
+            color: #64748b;
+            margin: 0 0 18px 0;
         }
-
-        .search-wrap {
-            position: relative;
-            min-width: 180px;
+        .db-export-table-wrap {
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 14px;
         }
-
-        .search-wrap i {
-            position: absolute;
-            left: 11px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #b0bac7;
-            font-size: 12px;
-            pointer-events: none;
-        }
-
-        .filter-bar input[type="text"] {
-            padding: 8px 11px 8px 31px;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 9px;
-            font-size: 13px;
-            font-family: 'DM Sans', sans-serif;
-            color: #1e293b;
-            background: #f8fafc;
-            outline: none;
-            width: 100%;
-            box-sizing: border-box;
-            transition: border-color 0.18s, background 0.18s;
-        }
-
-        .filter-bar input[type="text"]:focus {
-            border-color: #3b82f6;
-            background: #fff;
-        }
-
-        .filter-bar select {
-            padding: 8px 28px 8px 11px;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 9px;
-            font-size: 13px;
-            font-family: 'DM Sans', sans-serif;
-            color: #334155;
-            background: #f8fafc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 9px center;
-            appearance: none;
-            cursor: pointer;
-            outline: none;
-            transition: border-color 0.18s;
-        }
-
-        .filter-bar select:focus { border-color: #3b82f6; background-color: #fff; }
-
-        /* Table */
-        .table-wrap { overflow-x: auto; }
-
-        .backup-table {
+        .db-export-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13px;
+            font-size: 12.5px;
         }
-
-        .backup-table thead tr {
-            background: #f8fafc;
-            border-bottom: 1.5px solid #e8edf3;
-        }
-
-        .backup-table th {
-            padding: 10px 16px;
-            text-align: left;
-            font-size: 11px;
-            font-weight: 600;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.6px;
-            white-space: nowrap;
-        }
-
-        .backup-table th:first-child,
-        .backup-table td:first-child {
-            width: 48px;
-            text-align: center;
-            padding-left: 18px;
-        }
-
-        .backup-table tbody tr {
-            border-bottom: 1px solid #f1f5f9;
-            transition: background 0.1s;
-        }
-
-        .backup-table tbody tr:last-child { border-bottom: none; }
-        .backup-table tbody tr:hover { background: #f8fbff; }
-        .backup-table tbody tr.selected-row { background: #eff6ff; }
-
-        .backup-table td {
-            padding: 12px 16px;
-            color: #1e293b;
-            vertical-align: middle;
-        }
-
-        .cell-id {
-            font-family: 'DM Mono', monospace;
-            font-size: 11.5px;
-            color: #475569;
+        .db-export-table thead th {
             background: #f1f5f9;
-            padding: 3px 8px;
-            border-radius: 6px;
-            display: inline-block;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+            color: #475569;
+            border-bottom: 1px solid #e2e8f0;
             white-space: nowrap;
         }
-
-        .cell-name { font-weight: 500; color: #0f172a; }
-
-        .dept-pill {
-            display: inline-block;
-            background: #eff6ff;
-            color: #2563eb;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 3px 9px;
-            border-radius: 6px;
+        .db-export-table tbody tr { border-bottom: 1px solid #f1f5f9; }
+        .db-export-table tbody tr:nth-child(even) { background: #f8fafc; }
+        .db-export-table tbody tr:last-child { border-bottom: none; }
+        .db-export-table tbody td {
+            padding: 9px 14px;
+            color: #374151;
+            white-space: nowrap;
         }
-
-        /* Tally dots */
-        .tally-wrap {
+        .db-export-row-meta {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
         }
-
-        .tally-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
+        .db-export-btn-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
         }
-
-        .tally-dot.filled-minor  { background: #f59e0b; }
-        .tally-dot.empty-minor   { background: #fef3c7; border: 1px solid #fde68a; }
-        .tally-dot.filled-major  { background: #ef4444; }
-        .tally-dot.empty-major   { background: #fee2e2; border: 1px solid #fecaca; }
-
-        .tally-num {
-            font-family: 'DM Mono', monospace;
-            font-size: 11px;
-            color: #64748b;
-            margin-left: 4px;
-        }
-
-        /* Badges */
-        .badge {
+        .db-export-btn {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            padding: 3px 10px;
-            border-radius: 7px;
-            font-size: 11px;
+            gap: 8px;
+            padding: 9px 20px;
+            border-radius: 8px;
+            font-size: 13px;
             font-weight: 600;
+            cursor: default;
+            border: none;
+            background: #16a34a;
+            color: #fff;
+            user-select: none;
         }
-
-        .badge::before {
-            content: '';
-            width: 5px; height: 5px;
-            border-radius: 50%;
-            flex-shrink: 0;
+        .db-export-btn i { font-size: 13px; }
+        .db-btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: default;
+            border: 1px solid #e2e8f0;
+            background: transparent;
+            color: #64748b;
+            user-select: none;
         }
-
-        .badge.risk-high     { background:#fef2f2; color:#dc2626; border:1px solid #fecaca; }
-        .badge.risk-high::before     { background:#ef4444; }
-        .badge.risk-medium   { background:#fffbeb; color:#b45309; border:1px solid #fde68a; }
-        .badge.risk-medium::before   { background:#f59e0b; }
-        .badge.risk-low      { background:#f0fdf4; color:#15803d; border:1px solid #bbf7d0; }
-        .badge.risk-low::before      { background:#22c55e; }
-
-        .badge.type-major    { background:#fef2f2; color:#dc2626; border:1px solid #fecaca; }
-        .badge.type-major::before    { background:#ef4444; }
-        .badge.type-minor    { background:#fffbeb; color:#b45309; border:1px solid #fde68a; }
-        .badge.type-minor::before    { background:#f59e0b; }
-
-        /* Status — read-only display only, changed via Disciplinary Action */
-        .badge.status-pending    { background:#f0f9ff; color:#0369a1; border:1px solid #bae6fd; }
-        .badge.status-pending::before    { background:#38bdf8; }
-        .badge.status-resolved   { background:#f0fdf4; color:#15803d; border:1px solid #bbf7d0; }
-        .badge.status-resolved::before   { background:#22c55e; }
-        .badge.status-sanctioned { background:#fdf4ff; color:#7e22ce; border:1px solid #e9d5ff; }
-        .badge.status-sanctioned::before { background:#a855f7; }
-
-        /* E-signature */
-        .sig-img {
-            max-height: 36px;
-            max-width: 90px;
-            object-fit: contain;
-            border-radius: 4px;
+        .db-risk-low     { background: #dcfce7; color: #15803d; border-radius: 99px; padding: 2px 10px; font-size: 11.5px; font-weight: 600; display: inline-block; }
+        .db-risk-medium  { background: #fef3c7; color: #92400e; border-radius: 99px; padding: 2px 10px; font-size: 11.5px; font-weight: 600; display: inline-block; }
+        .db-risk-high    { background: #fee2e2; color: #b91c1c; border-radius: 99px; padding: 2px 10px; font-size: 11.5px; font-weight: 600; display: inline-block; }
+        .db-risk-critical{ background: #fce7f3; color: #9d174d; border-radius: 99px; padding: 2px 10px; font-size: 11.5px; font-weight: 600; display: inline-block; }
+        .db-type-minor   { background: #dbeafe; color: #1d4ed8; border-radius: 99px; padding: 2px 10px; font-size: 11.5px; font-weight: 600; display: inline-block; }
+        .db-type-major   { background: #fee2e2; color: #b91c1c; border-radius: 99px; padding: 2px 10px; font-size: 11.5px; font-weight: 600; display: inline-block; }
+        .db-st-completed { background: #dcfce7; color: #15803d; border-radius: 99px; padding: 2px 10px; font-size: 11.5px; font-weight: 600; display: inline-block; }
+        .db-st-ongoing   { background: #dbeafe; color: #1d4ed8; border-radius: 99px; padding: 2px 10px; font-size: 11.5px; font-weight: 600; display: inline-block; }
+        .db-st-pending   { background: #fef3c7; color: #92400e; border-radius: 99px; padding: 2px 10px; font-size: 11.5px; font-weight: 600; display: inline-block; }
+        .db-st-active    { background: #e0e7ff; color: #4338ca; border-radius: 99px; padding: 2px 10px; font-size: 11.5px; font-weight: 600; display: inline-block; }
+        .db-fmt-excel    { background: #dcfce7; color: #15803d; border-radius: 99px; padding: 2px 10px; font-size: 11.5px; font-weight: 600; display: inline-block; }
+        .db-dl-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
             border: 1px solid #e2e8f0;
             background: #fff;
-            padding: 2px 4px;
-        }
-
-        .sig-none {
-            font-size: 11px;
-            color: #cbd5e1;
-            font-style: italic;
-        }
-
-        input[type="checkbox"] {
-            width: 15px; height: 15px;
-            cursor: pointer;
-            accent-color: #3b82f6;
-        }
-
-        /* Empty state */
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #94a3b8;
-        }
-
-        .empty-state i { font-size: 28px; margin-bottom: 10px; display: block; opacity:.4; }
-        .empty-state p { font-size: 13px; margin: 0; }
-
-        /* Panel footer */
-        .panel-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 13px 22px;
-            border-top: 1px solid #f1f5f9;
-            background: #fafbfc;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .sel-info {
-            font-size: 13px;
-            color: #64748b;
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-
-        .count-badge {
-            background: #eff6ff;
-            color: #2563eb;
-            font-weight: 700;
-            font-size: 12px;
-            padding: 2px 9px;
-            border-radius: 20px;
-            min-width: 20px;
-            text-align: center;
-            display: inline-block;
-        }
-
-        .no-sel-note {
-            font-size: 12px;
-            color: #ef4444;
-            margin-top: 3px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* Buttons */
-        .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            padding: 8px 15px;
-            border-radius: 9px;
-            font-size: 13px;
-            font-weight: 600;
-            font-family: 'DM Sans', sans-serif;
-            cursor: pointer;
-            border: none;
-            transition: all 0.15s ease;
-            white-space: nowrap;
-        }
-
-        .btn i { font-size: 12px; }
-
-        .btn-outline {
-            background: #fff;
             color: #475569;
-            border: 1.5px solid #e2e8f0;
-        }
-
-        .btn-outline:hover {
-            background: #f8fafc;
-            border-color: #cbd5e1;
-            color: #1e293b;
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #16a34a, #15803d);
-            color: #fff;
-            box-shadow: 0 2px 8px rgba(22,163,74,.22);
-        }
-
-        .btn-success:hover {
-            background: linear-gradient(135deg, #15803d, #166534);
-            box-shadow: 0 4px 14px rgba(22,163,74,.32);
-            transform: translateY(-1px);
-        }
-
-        .btn-success:active { transform: translateY(0); }
-
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 28px;
-            right: 28px;
-            background: #0f172a;
-            color: #f8fafc;
-            padding: 13px 20px;
-            border-radius: 12px;
             font-size: 13px;
-            font-family: 'DM Sans', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            opacity: 0;
-            transform: translateY(14px);
-            transition: all 0.26s cubic-bezier(0.34,1.56,0.64,1);
-            z-index: 9999;
-            pointer-events: none;
-            box-shadow: 0 8px 28px rgba(0,0,0,.18);
-            max-width: 400px;
+            cursor: default;
         }
-
-        .toast.show { opacity: 1; transform: translateY(0); }
-        .toast i { color: #4ade80; font-size: 15px; flex-shrink: 0; }
-
-        @media (max-width: 768px) {
-            .content { padding: 20px 16px 36px; }
-        }
+        .db-divider { border: none; border-top: 1px solid #f1f5f9; margin: 0 0 18px 0; }
     </style>
 </head>
 <body>
@@ -437,75 +146,295 @@
     <div class="sidebar_content">
         <ul>
             <h3>Overview</h3>
-                <li>
-                    <a href="admin_dashboard.html">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
+            <li><a href="admin_dashboard.html"><i class="fas fa-chart-line"></i><span>Dashboard</span></a></li>
             <h3>Students</h3>
-                <li>
-                    <a href="student_records.html">
-                        <i class="fas fa-user-graduate"></i>
-                        <span>Student Records</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="violation_history.html">
-                        <i class="fas fa-history"></i>
-                        <span>Violation History</span>
-                    </a>
-                </li>
+            <li><a href="student_records.html"><i class="fas fa-user-graduate"></i><span>Student Records</span></a></li>
+            <li><a href="violation_history.html"><i class="fas fa-history"></i><span>Violation History</span></a></li>
             <h3>Discipline</h3>
-                <li>
-                    <a href="disciplinary_action.html">
-                        <i class="fas fa-gavel"></i>
-                        <span>Disciplinary Actions</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="risk_level.html">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <span>Risk Level Indicator</span>
-                    </a>
-                </li>
-            <h3>Backup & Reports</h3>
-                <li>
-                    <a href="data_backup.html" class="active">
-                        <i class="fas fa-cloud-download-alt"></i>
-                        <span>Data Backup</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="import_data.html">
-                        <i class="fas fa-file-import"></i>
-                        <span>Import Data</span>
-                    </a>
-                </li>
+            <li><a href="disciplinary_action.html"><i class="fas fa-gavel"></i><span>Disciplinary Actions</span></a></li>
+            <li><a href="risk_level.html"><i class="fas fa-exclamation-triangle"></i><span>Risk Level Indicator</span></a></li>
+            <h3>Backup &amp; Reports</h3>
+            <li><a href="data_backup.html"class="active"><i class="fas fa-cloud-download-alt"></i><span>Data Backup</span></a></li>
+            <li><a href="import_data.html"><i class="fas fa-file-import"></i><span>Import Data</span></a></li>
             <h3>System</h3>
-                <li>
-                    <a href="jassu_users.html">
-                        <i class="fas fa-user"></i>
-                        <span>Jassu User</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Log Out</span>
-                    </a>
-                </li>
+            <li><a href="jassu_users.html"><i class="fas fa-user"></i><span>Jassu User</span></a></li>
+            <li><a href="#"><i class="fas fa-sign-out-alt"></i><span>Log Out</span></a></li>
         </ul>
     </div>
 </div>
 
 <div class="main-content">
     <nav class="navbar">
-        <h1>Data Backup</h1>
+        <h1>Export Data</h1>
     </nav>
 
     <div class="content">
-    
+
+        <!-- 1. STUDENT RECORDS -->
+        <div class="db-export-card">
+            <div class="db-export-card-header">
+                <h2><i class="fas fa-user-graduate"></i> Student Records</h2>
+            </div>
+            <p class="db-export-card-desc">Complete list of enrolled students with course, year, section, department, and risk level.</p>
+            <div class="db-export-table-wrap">
+                <table class="db-export-table">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th><th>Full Name</th><th>Course</th><th>Year</th><th>Section</th><th>Department</th><th>Risk Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>223-09673</td><td><strong>Juan dela Cruz</strong></td><td>BSIT</td><td>3rd Year</td><td>A</td><td>School of Technology</td><td><span class="db-risk-low">Low</span></td></tr>
+                        <tr><td>223-10245</td><td><strong>Maria Santos</strong></td><td>BIT</td><td>2nd Year</td><td>B</td><td>School of Technology</td><td><span class="db-risk-medium">Medium</span></td></tr>
+                        <tr><td>223-08831</td><td><strong>Carlos Reyes</strong></td><td>BSEd</td><td>4th Year</td><td>C</td><td>School of Education</td><td><span class="db-risk-high">High</span></td></tr>
+                        <tr><td>223-11402</td><td><strong>Ana Gonzales</strong></td><td>BEEd</td><td>1st Year</td><td>A</td><td>School of Education</td><td><span class="db-risk-low">Low</span></td></tr>
+                        <tr><td>223-07758</td><td><strong>Mark Villanueva</strong></td><td>BSBA</td><td>3rd Year</td><td>B</td><td>School of Business</td><td><span class="db-risk-medium">Medium</span></td></tr>
+                        <tr><td>223-09014</td><td><strong>Liza Fernandez</strong></td><td>BSIT</td><td>4th Year</td><td>A</td><td>School of Technology</td><td><span class="db-risk-low">Low</span></td></tr>
+                        <tr><td>223-12387</td><td><strong>Rico Mendoza</strong></td><td>BSMA</td><td>1st Year</td><td>C</td><td>School of Business</td><td><span class="db-risk-high">High</span></td></tr>
+                        <tr><td>223-10561</td><td><strong>Claire Pascual</strong></td><td>BEEd</td><td>2nd Year</td><td>B</td><td>School of Education</td><td><span class="db-risk-medium">Medium</span></td></tr>
+                        <tr><td>223-08190</td><td><strong>Dennis Bautista</strong></td><td>BSBA</td><td>3rd Year</td><td>A</td><td>School of Business</td><td><span class="db-risk-low">Low</span></td></tr>
+                        <tr><td>223-11729</td><td><strong>Patricia Ramos</strong></td><td>BSEd</td><td>4th Year</td><td>C</td><td>School of Education</td><td><span class="db-risk-high">High</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="db-export-row-meta"><i class="fas fa-table"></i> 10 records · 7 columns</div>
+            <hr class="db-divider">
+            <div class="db-export-btn-row">
+                <div class="db-export-btn"><i class="fas fa-file-excel"></i> Export to Excel</div>
+            </div>
+        </div>
+
+        <!-- 2. VIOLATION HISTORY -->
+        <div class="db-export-card">
+            <div class="db-export-card-header">
+                <h2><i class="fas fa-history"></i> Violation History</h2>
+            </div>
+            <p class="db-export-card-desc">All recorded student violations including type, date, tally, and resolution status.</p>
+            <div class="db-export-table-wrap">
+                <table class="db-export-table">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th><th>Full Name</th><th>Type</th><th>Violation</th><th>Date</th><th>Tally</th><th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>223-09673</td><td><strong>Juan dela Cruz</strong></td><td><span class="db-type-minor">Minor</span></td><td>Failure to wear ID</td><td>2025-01-08</td><td>2/5</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-09673</td><td><strong>Juan dela Cruz</strong></td><td><span class="db-type-minor">Minor</span></td><td>Late to class</td><td>2025-02-19</td><td>2/5</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-10245</td><td><strong>Maria Santos</strong></td><td><span class="db-type-minor">Minor</span></td><td>Improper uniform</td><td>2025-01-10</td><td>3/5</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-10245</td><td><strong>Maria Santos</strong></td><td><span class="db-type-minor">Minor</span></td><td>Using phone during class</td><td>2025-02-03</td><td>3/5</td><td><span class="db-st-ongoing">Ongoing</span></td></tr>
+                        <tr><td>223-10245</td><td><strong>Maria Santos</strong></td><td><span class="db-type-minor">Minor</span></td><td>Noisy in hallway</td><td>2025-03-15</td><td>3/5</td><td><span class="db-st-pending">Pending</span></td></tr>
+                        <tr><td>223-10245</td><td><strong>Maria Santos</strong></td><td><span class="db-type-major">Major</span></td><td>Cheating / academic dishonesty</td><td>2025-04-02</td><td>1/3</td><td><span class="db-st-ongoing">Ongoing</span></td></tr>
+                        <tr><td>223-08831</td><td><strong>Carlos Reyes</strong></td><td><span class="db-type-major">Major</span></td><td>Fighting / physical altercation</td><td>2025-01-22</td><td>3/3 MAX</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-08831</td><td><strong>Carlos Reyes</strong></td><td><span class="db-type-major">Major</span></td><td>Threats or intimidation</td><td>2025-02-28</td><td>3/3 MAX</td><td><span class="db-st-ongoing">Ongoing</span></td></tr>
+                        <tr><td>223-08831</td><td><strong>Carlos Reyes</strong></td><td><span class="db-type-major">Major</span></td><td>Bullying</td><td>2025-04-10</td><td>3/3 MAX</td><td><span class="db-st-pending">Pending</span></td></tr>
+                        <tr><td>223-11402</td><td><strong>Ana Gonzales</strong></td><td><span class="db-type-minor">Minor</span></td><td>Littering</td><td>2025-03-04</td><td>1/5</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-07758</td><td><strong>Mark Villanueva</strong></td><td><span class="db-type-minor">Minor</span></td><td>Absence without excuse</td><td>2025-01-17</td><td>2/5</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-07758</td><td><strong>Mark Villanueva</strong></td><td><span class="db-type-minor">Minor</span></td><td>Disrespectful language</td><td>2025-02-25</td><td>2/5</td><td><span class="db-st-ongoing">Ongoing</span></td></tr>
+                        <tr><td>223-07758</td><td><strong>Mark Villanueva</strong></td><td><span class="db-type-major">Major</span></td><td>Vandalism of school property</td><td>2025-03-30</td><td>1/3</td><td><span class="db-st-pending">Pending</span></td></tr>
+                        <tr><td>223-09014</td><td><strong>Liza Fernandez</strong></td><td><span class="db-type-minor">Minor</span></td><td>Running in corridors</td><td>2025-02-11</td><td>1/5</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-12387</td><td><strong>Rico Mendoza</strong></td><td><span class="db-type-major">Major</span></td><td>Possession of prohibited items</td><td>2025-01-30</td><td>3/3 MAX</td><td><span class="db-st-ongoing">Ongoing</span></td></tr>
+                        <tr><td>223-12387</td><td><strong>Rico Mendoza</strong></td><td><span class="db-type-major">Major</span></td><td>Substance use or possession</td><td>2025-03-07</td><td>3/3 MAX</td><td><span class="db-st-pending">Pending</span></td></tr>
+                        <tr><td>223-12387</td><td><strong>Rico Mendoza</strong></td><td><span class="db-type-major">Major</span></td><td>Theft</td><td>2025-04-18</td><td>3/3 MAX</td><td><span class="db-st-pending">Pending</span></td></tr>
+                        <tr><td>223-10561</td><td><strong>Claire Pascual</strong></td><td><span class="db-type-minor">Minor</span></td><td>Vandalism (minor)</td><td>2025-02-06</td><td>2/5</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-10561</td><td><strong>Claire Pascual</strong></td><td><span class="db-type-minor">Minor</span></td><td>Late to class</td><td>2025-03-21</td><td>2/5</td><td><span class="db-st-ongoing">Ongoing</span></td></tr>
+                        <tr><td>223-10561</td><td><strong>Claire Pascual</strong></td><td><span class="db-type-major">Major</span></td><td>Sexual harassment</td><td>2025-04-14</td><td>1/3</td><td><span class="db-st-pending">Pending</span></td></tr>
+                        <tr><td>223-08190</td><td><strong>Dennis Bautista</strong></td><td><span class="db-type-minor">Minor</span></td><td>Failure to wear ID</td><td>2025-01-29</td><td>1/5</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-11729</td><td><strong>Patricia Ramos</strong></td><td><span class="db-type-major">Major</span></td><td>Threats or intimidation</td><td>2025-01-15</td><td>3/3 MAX</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-11729</td><td><strong>Patricia Ramos</strong></td><td><span class="db-type-major">Major</span></td><td>Bullying</td><td>2025-02-20</td><td>3/3 MAX</td><td><span class="db-st-ongoing">Ongoing</span></td></tr>
+                        <tr><td>223-11729</td><td><strong>Patricia Ramos</strong></td><td><span class="db-type-major">Major</span></td><td>Fighting / physical altercation</td><td>2025-04-05</td><td>3/3 MAX</td><td><span class="db-st-pending">Pending</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="db-export-row-meta"><i class="fas fa-table"></i> 24 records · 7 columns</div>
+            <hr class="db-divider">
+            <div class="db-export-btn-row">
+                <div class="db-export-btn"><i class="fas fa-file-excel"></i> Export to Excel</div>
+            </div>
+        </div>
+
+        <!-- 3. DISCIPLINARY ACTIONS -->
+        <div class="db-export-card">
+            <div class="db-export-card-header">
+                <h2><i class="fas fa-gavel"></i> Disciplinary Actions</h2>
+            </div>
+            <p class="db-export-card-desc">Actions imposed on students as a result of violations, including dates and current status.</p>
+            <div class="db-export-table-wrap">
+                <table class="db-export-table">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th><th>Full Name</th><th>Action</th><th>Start Date</th><th>End Date</th><th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>223-08831</td><td><strong>Carlos Reyes</strong></td><td>Suspension — 5 days</td><td>2025-01-27</td><td>2025-01-31</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-08831</td><td><strong>Carlos Reyes</strong></td><td>Written Warning &amp; Parent Meeting</td><td>2025-03-03</td><td>2025-03-03</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-08831</td><td><strong>Carlos Reyes</strong></td><td>Suspension — 10 days (pending expulsion review)</td><td>2025-04-14</td><td>2025-04-25</td><td><span class="db-st-active">Active</span></td></tr>
+                        <tr><td>223-12387</td><td><strong>Rico Mendoza</strong></td><td>Confiscation &amp; Written Warning</td><td>2025-02-03</td><td>2025-02-03</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-12387</td><td><strong>Rico Mendoza</strong></td><td>Suspension — 7 days</td><td>2025-03-10</td><td>2025-03-17</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-12387</td><td><strong>Rico Mendoza</strong></td><td>Suspension — 10 days &amp; Counseling</td><td>2025-04-21</td><td>2025-05-02</td><td><span class="db-st-pending">Pending</span></td></tr>
+                        <tr><td>223-11729</td><td><strong>Patricia Ramos</strong></td><td>Written Warning &amp; Counseling</td><td>2025-01-20</td><td>2025-01-20</td><td><span class="db-st-completed">Completed</span></td></tr>
+                        <tr><td>223-11729</td><td><strong>Patricia Ramos</strong></td><td>Suspension — 5 days</td><td>2025-02-24</td><td>2025-02-28</td><td><span class="db-st-active">Active</span></td></tr>
+                        <tr><td>223-11729</td><td><strong>Patricia Ramos</strong></td><td>Suspension — 10 days &amp; Parent Conference</td><td>2025-04-07</td><td>2025-04-17</td><td><span class="db-st-pending">Pending</span></td></tr>
+                        <tr><td>223-10245</td><td><strong>Maria Santos</strong></td><td>Academic Integrity Warning &amp; Zero on Exam</td><td>2025-04-05</td><td>2025-04-05</td><td><span class="db-st-active">Active</span></td></tr>
+                        <tr><td>223-07758</td><td><strong>Mark Villanueva</strong></td><td>Community Service — 8 hours &amp; Repair of Damages</td><td>2025-04-02</td><td>2025-04-09</td><td><span class="db-st-pending">Pending</span></td></tr>
+                        <tr><td>223-10561</td><td><strong>Claire Pascual</strong></td><td>Suspension — 3 days &amp; Mandatory Counseling</td><td>2025-04-16</td><td>2025-04-18</td><td><span class="db-st-pending">Pending</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="db-export-row-meta"><i class="fas fa-table"></i> 12 records · 6 columns</div>
+            <hr class="db-divider">
+            <div class="db-export-btn-row">
+                <div class="db-export-btn"><i class="fas fa-file-excel"></i> Export to Excel</div>
+            </div>
+        </div>
+
+        <!-- 4. RISK LEVEL INDICATOR -->
+        <div class="db-export-card">
+            <div class="db-export-card-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Risk Level Indicator</h2>
+            </div>
+            <p class="db-export-card-desc">Student risk assessment based on cumulative minor and major violation tallies.</p>
+            <div class="db-export-table-wrap">
+                <table class="db-export-table">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th><th>Full Name</th><th>Minor Tally</th><th>Major Tally</th><th>Risk Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>2024-0001</td><td><strong>Alcantara, Maria Joy T.</strong></td><td>0</td><td>0</td><td><span class="db-risk-low">LOW</span></td></tr>
+                        <tr><td>2024-0042</td><td><strong>Bautista, Carlo Miguel R.</strong></td><td>2</td><td>0</td><td><span class="db-risk-low">LOW</span></td></tr>
+                        <tr><td>2023-0118</td><td><strong>Cruz, Angelica F.</strong></td><td>3</td><td>1</td><td><span class="db-risk-high">HIGH</span></td></tr>
+                        <tr><td>2023-0205</td><td><strong>Dela Rosa, John Paul V.</strong></td><td>5</td><td>2</td><td><span class="db-risk-critical">CRITICAL</span></td></tr>
+                        <tr><td>2022-0310</td><td><strong>Fernandez, Kristine Mae A.</strong></td><td>1</td><td>0</td><td><span class="db-risk-low">LOW</span></td></tr>
+                        <tr><td>2022-0447</td><td><strong>Garcia, Renz Oliver B.</strong></td><td>4</td><td>3</td><td><span class="db-risk-critical">CRITICAL</span></td></tr>
+                        <tr><td>2021-0503</td><td><strong>Herrera, Sofia Isabelle L.</strong></td><td>2</td><td>1</td><td><span class="db-risk-medium">MEDIUM</span></td></tr>
+                        <tr><td>2024-0089</td><td><strong>Ilagan, Luis Rafael C.</strong></td><td>0</td><td>0</td><td><span class="db-risk-low">LOW</span></td></tr>
+                        <tr><td>2023-0612</td><td><strong>Jimenez, Patricia Ann D.</strong></td><td>6</td><td>4</td><td><span class="db-risk-critical">CRITICAL</span></td></tr>
+                        <tr><td>2022-0731</td><td><strong>Lim, Kenneth Bryan O.</strong></td><td>3</td><td>0</td><td><span class="db-risk-medium">MEDIUM</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="db-export-row-meta"><i class="fas fa-table"></i> 10 records · 5 columns</div>
+            <hr class="db-divider">
+            <div class="db-export-btn-row">
+                <div class="db-export-btn"><i class="fas fa-file-excel"></i> Export to Excel</div>
+            </div>
+        </div>
+
+        <!-- 5. DOWNLOAD EXPORT HISTORY -->
+        <div class="db-export-card">
+            <div class="db-export-card-header">
+                <h2><i class="fas fa-clock-rotate-left"></i> Download Export History</h2>
+            </div>
+            <p class="db-export-card-desc">A log of all previously exported data files. Re-download any past export record.</p>
+            <div class="db-export-table-wrap">
+                <table class="db-export-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>File Name</th>
+                            <th>Data Source</th>
+                            <th>Format</th>
+                            <th>Records</th>
+                            <th>Exported By</th>
+                            <th>Date &amp; Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>student_records_2025-04-22.xlsx</strong></td>
+                            <td>Student Records</td>
+                            <td><span class="db-fmt-excel">Excel</span></td>
+                            <td>10</td>
+                            <td>Admin</td>
+                            <td>2025-04-22 09:14 AM</td>
+                            <td><span class="db-dl-icon"><i class="fas fa-download"></i></span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><strong>violation_history_2025-04-22.xlsx</strong></td>
+                            <td>Violation History</td>
+                            <td><span class="db-fmt-excel">Excel</span></td>
+                            <td>24</td>
+                            <td>Admin</td>
+                            <td>2025-04-22 09:16 AM</td>
+                            <td><span class="db-dl-icon"><i class="fas fa-download"></i></span></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><strong>disciplinary_actions_2025-04-22.xlsx</strong></td>
+                            <td>Disciplinary Actions</td>
+                            <td><span class="db-fmt-excel">Excel</span></td>
+                            <td>12</td>
+                            <td>Admin</td>
+                            <td>2025-04-22 09:18 AM</td>
+                            <td><span class="db-dl-icon"><i class="fas fa-download"></i></span></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><strong>risk_level_indicator_2025-04-15.xlsx</strong></td>
+                            <td>Risk Level Indicator</td>
+                            <td><span class="db-fmt-excel">Excel</span></td>
+                            <td>10</td>
+                            <td>Admin</td>
+                            <td>2025-04-15 02:45 PM</td>
+                            <td><span class="db-dl-icon"><i class="fas fa-download"></i></span></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><strong>student_records_2025-04-10.xlsx</strong></td>
+                            <td>Student Records</td>
+                            <td><span class="db-fmt-excel">Excel</span></td>
+                            <td>10</td>
+                            <td>Admin</td>
+                            <td>2025-04-10 11:02 AM</td>
+                            <td><span class="db-dl-icon"><i class="fas fa-download"></i></span></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td><strong>violation_history_2025-03-31.xlsx</strong></td>
+                            <td>Violation History</td>
+                            <td><span class="db-fmt-excel">Excel</span></td>
+                            <td>18</td>
+                            <td>Admin</td>
+                            <td>2025-03-31 03:30 PM</td>
+                            <td><span class="db-dl-icon"><i class="fas fa-download"></i></span></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td><strong>disciplinary_actions_2025-03-20.xlsx</strong></td>
+                            <td>Disciplinary Actions</td>
+                            <td><span class="db-fmt-excel">Excel</span></td>
+                            <td>9</td>
+                            <td>Admin</td>
+                            <td>2025-03-20 10:55 AM</td>
+                            <td><span class="db-dl-icon"><i class="fas fa-download"></i></span></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td><strong>risk_level_indicator_2025-03-10.xlsx</strong></td>
+                            <td>Risk Level Indicator</td>
+                            <td><span class="db-fmt-excel">Excel</span></td>
+                            <td>10</td>
+                            <td>Admin</td>
+                            <td>2025-03-10 08:30 AM</td>
+                            <td><span class="db-dl-icon"><i class="fas fa-download"></i></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="db-export-row-meta"><i class="fas fa-table"></i> 8 records · 8 columns</div>
+            <hr class="db-divider">
+            <div class="db-export-btn-row" style="gap: 10px;">
+                <div class="db-btn-ghost"><i class="fas fa-trash-alt"></i> Clear History</div>
+                
+            </div>
+        </div>
+
+    </div>
 </div>
 
 </body>
