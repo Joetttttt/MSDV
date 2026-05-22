@@ -341,3 +341,4 @@ buildDonut('majorDonut', AppData.majorOffenses, 'majorLegend', 'majorTotal');
 buildDonut('minorDonut', AppData.minorOffenses, 'minorLegend', 'minorTotal');
 
 
+    
