@@ -67,7 +67,6 @@ const AppData = {
         { label: 'Littering',              count: 21, color: '#86efac' },
     ],
 
-
     recentViolations: [
         { name:'Juan dela Cruz',   id:'2021-00142', dept:'SOT', year:'3rd', violation:'Academic Dishonesty',    type:'Major', date:'Mar 12, 2024', status:'Pending'  },
         { name:'Maria Santos',     id:'2022-00391', dept:'SOB', year:'2nd', violation:'Tardiness',              type:'Minor', date:'Mar 12, 2024', status:'Resolved' },
