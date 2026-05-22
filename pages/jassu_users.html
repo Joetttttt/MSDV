@@ -26,7 +26,7 @@
             text-transform: uppercase; color: #9099b5; margin-bottom: -4px;
         }
 
-        /* ── STAT CARDS ── */
+        /* STAT CARDS */
         .ju-stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
         .ju-stat-card {
             background: #fff; border: 1px solid #e2e6f0; border-radius: 12px;
@@ -38,14 +38,14 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 16px; flex-shrink: 0;
         }
-        .ju-stat-icon.blue   { background: var(--blue-light); color: var(--blue); }
-        .ju-stat-icon.red    { background: var(--red-light);  color: var(--red);  }
-        .ju-stat-icon.blue2  { background: #e6e6ff; color: #0000aa; }
-        .ju-stat-icon.red2   { background: #ffe6e6; color: #aa0000; }
+        .ju-stat-icon.blue  { background: var(--blue-light); color: var(--blue); }
+        .ju-stat-icon.blue2 { background: #d6d6ff; color: #0000aa; }
+        .ju-stat-icon.red   { background: var(--red-light); color: var(--red); }
+        .ju-stat-icon.red2  { background: #ffd6d6; color: #aa0000; }
         .ju-stat-val { font-size: 24px; font-weight: 800; color: #1a1d2e; line-height: 1; }
         .ju-stat-lbl { font-size: 11px; color: #9099b5; margin-top: 3px; }
 
-        /* ── PANEL ── */
+        /* PANEL */
         .ju-panel {
             background: #fff; border: 1px solid #e2e6f0; border-radius: 14px;
             padding: 22px 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.04);
@@ -57,41 +57,32 @@
         .ju-panel-title { font-size: 13px; font-weight: 700; color: #1a1d2e; }
         .ju-panel-sub   { font-size: 11px; color: #9099b5; margin-top: 2px; }
 
-        /* ── TOOLBAR ── */
+        /* TOOLBAR */
         .ju-toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
         .ju-search-box {
             display: flex; align-items: center; gap: 7px;
             background: #f7f8fc; border: 1px solid #e2e6f0; border-radius: 8px;
             padding: 7px 11px; font-size: 12px; color: #9099b5; min-width: 190px;
         }
-        .ju-search-box input {
-            border: none; background: transparent; outline: none;
-            font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px;
-            color: #1a1d2e; width: 100%;
-        }
         .ju-select-box {
             background: #f7f8fc; border: 1px solid #e2e6f0; border-radius: 8px;
             padding: 7px 11px; font-size: 11px; font-weight: 500; color: #4b5568;
-            font-family: 'Plus Jakarta Sans', sans-serif; outline: none; cursor: pointer;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
-        .ju-select-box:focus { border-color: var(--blue); }
 
-        /* ── BUTTONS ── */
+        /* BUTTONS */
         .ju-btn {
             display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px;
             border-radius: 8px; font-size: 12px; font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; white-space: nowrap;
+            font-weight: 600; border: none; white-space: nowrap;
         }
         .ju-btn-primary { background: var(--blue); color: #fff; }
-        .ju-btn-primary:hover { background: #0000aa; }
-        .ju-btn-ghost { background: #f7f8fc; color: #4b5568; border: 1px solid #e2e6f0; }
-        .ju-btn-ghost:hover { background: #eef0f6; color: #1a1d2e; }
-        .ju-btn-danger { background: var(--red-light); color: var(--red); border: 1px solid var(--red-mid); }
-        .ju-btn-danger:hover { background: #ffcccc; }
-        .ju-btn-sm   { padding: 5px 10px; font-size: 11px; }
-        .ju-btn-icon { width: 28px; height: 28px; padding: 0; justify-content: center; border-radius: 7px; }
+        .ju-btn-ghost   { background: #f7f8fc; color: #4b5568; border: 1px solid #e2e6f0; }
+        .ju-btn-danger  { background: var(--red-light); color: var(--red); border: 1px solid var(--red-mid); }
+        .ju-btn-sm      { padding: 5px 10px; font-size: 11px; }
+        .ju-btn-icon    { width: 28px; height: 28px; padding: 0; justify-content: center; border-radius: 7px; }
 
-        /* ── TABLE ── */
+        /* TABLE */
         .ju-table-wrap { overflow-x: auto; }
         .ju-table { width: 100%; border-collapse: collapse; font-size: 12px; }
         .ju-table thead tr th {
@@ -99,15 +90,14 @@
             letter-spacing: 0.08em; text-transform: uppercase; color: #9099b5;
             padding: 8px 14px; border-bottom: 1px solid #e2e6f0; white-space: nowrap;
         }
-        .ju-table tbody tr { transition: background 0.15s; }
-        .ju-table tbody tr:hover { background: #f7f8fc; }
+        .ju-table tbody tr:nth-child(even) { background: #fafbfc; }
         .ju-table tbody tr td {
             padding: 11px 14px; border-bottom: 1px solid rgba(0,0,0,0.04);
             color: #4b5568; vertical-align: middle;
         }
         .ju-table tbody tr:last-child td { border-bottom: none; }
         .ju-name-cell { font-size: 13px; font-weight: 600; color: #1a1d2e; }
-        .ju-mono { font-family: 'DM Mono', monospace; font-size: 11px; }
+        .ju-mono  { font-family: 'DM Mono', monospace; font-size: 11px; }
         .ju-email { font-size: 11px; color: #9099b5; }
         .ju-badge {
             display: inline-block; padding: 3px 9px; border-radius: 99px;
@@ -117,7 +107,7 @@
         .ju-badge-jassu { background: var(--red-light);  color: var(--red);  border: 1px solid var(--red-mid); }
         .ju-actions { display: flex; gap: 5px; align-items: center; }
 
-        /* ── PAGINATION ── */
+        /* PAGINATION */
         .ju-pagination {
             display: flex; align-items: center; justify-content: space-between;
             margin-top: 16px; font-size: 11px; color: #9099b5; flex-wrap: wrap; gap: 10px;
@@ -126,98 +116,9 @@
         .ju-page-btn {
             width: 26px; height: 26px; border-radius: 7px; background: #f7f8fc;
             border: 1px solid #e2e6f0; font-size: 11px; font-weight: 600; color: #4b5568;
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-            transition: all 0.15s;
-        }
-        .ju-page-btn:hover { background: #eef0f6; }
-        .ju-page-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
-        .ju-page-btn:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
-
-        /* ── MODALS ── */
-        .ju-overlay {
-            display: none; position: fixed; inset: 0;
-            background: rgba(15,20,40,0.45); backdrop-filter: blur(4px);
-            z-index: 9999; align-items: center; justify-content: center;
-        }
-        .ju-overlay.open { display: flex; }
-        .ju-modal {
-            background: #fff; border: 1px solid #e2e6f0; border-radius: 16px;
-            padding: 28px; width: 100%; max-width: 440px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            animation: juModalIn 0.2s ease;
-        }
-        @keyframes juModalIn {
-            from { opacity: 0; transform: translateY(-12px) scale(0.97); }
-            to   { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .ju-modal-header {
-            display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;
-        }
-        .ju-modal-title { font-size: 15px; font-weight: 700; color: #1a1d2e; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .ju-modal-close {
-            width: 30px; height: 30px; border-radius: 7px; background: #f7f8fc;
-            border: 1px solid #e2e6f0; cursor: pointer; display: flex;
-            align-items: center; justify-content: center; color: #9099b5; font-size: 13px; transition: all 0.15s;
-        }
-        .ju-modal-close:hover { background: #eef0f6; color: #1a1d2e; }
-        .ju-form-group { margin-bottom: 15px; }
-        .ju-form-group label {
-            display: block; font-size: 11px; font-weight: 700; color: #4b5568;
-            margin-bottom: 6px; letter-spacing: 0.04em; text-transform: uppercase;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-        .ju-form-group input,
-        .ju-form-group select {
-            width: 100%; padding: 9px 12px; border: 1px solid #e2e6f0; border-radius: 9px;
-            background: #f7f8fc; font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 13px; color: #1a1d2e; outline: none; transition: border-color 0.2s;
-            box-sizing: border-box;
-        }
-        .ju-form-group input:focus,
-        .ju-form-group select:focus { border-color: var(--blue); background: #fff; }
-        .ju-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .ju-pass-wrap { position: relative; }
-        .ju-pass-wrap input { padding-right: 38px; }
-        .ju-pass-toggle {
-            position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
-            cursor: pointer; color: #9099b5; font-size: 13px; transition: color 0.15s;
-        }
-        .ju-pass-toggle:hover { color: var(--blue); }
-        .ju-strength-wrap { margin-top: 6px; }
-        .ju-strength-bar  { height: 4px; border-radius: 99px; background: #eef0f6; overflow: hidden; }
-        .ju-strength-fill { height: 100%; border-radius: 99px; transition: width 0.3s, background 0.3s; }
-        .ju-strength-lbl  { font-size: 10px; color: #9099b5; margin-top: 4px; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .ju-modal-footer  { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
-
-        /* ── CONFIRM MODAL ── */
-        .ju-confirm-icon {
-            width: 52px; height: 52px; border-radius: 14px;
-            background: var(--red-light); color: var(--red);
             display: flex; align-items: center; justify-content: center;
-            font-size: 22px; margin: 0 auto 16px;
         }
-        .ju-confirm-text { text-align: center; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .ju-confirm-text h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-        .ju-confirm-text p  { font-size: 12px; color: #4b5568; line-height: 1.6; }
-
-        /* ── TOAST ── */
-        .ju-toast-wrap {
-            position: fixed; bottom: 24px; right: 24px;
-            display: flex; flex-direction: column; gap: 10px; z-index: 9999;
-        }
-        .ju-toast {
-            padding: 12px 18px; border-radius: 10px; font-size: 12px; font-weight: 500;
-            font-family: 'Plus Jakarta Sans', sans-serif; display: flex; align-items: center;
-            gap: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.18);
-            animation: juToastIn 0.3s ease; min-width: 220px; max-width: 320px; color: #fff;
-        }
-        .ju-toast.success { background: #059669; }
-        .ju-toast.error   { background: var(--red); }
-        .ju-toast.warning { background: #d97706; }
-        @keyframes juToastIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+        .ju-page-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
     </style>
 </head>
 <body>
@@ -233,64 +134,19 @@
     <div class="sidebar_content">
         <ul>
             <h3>Overview</h3>
-                <li>
-                    <a href="admin_dashboard.html">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
+                <li><a href="admin_dashboard.html"><i class="fas fa-chart-line"></i><span>Dashboard</span></a></li>
             <h3>Students</h3>
-                <li>
-                    <a href="student_records.html">
-                        <i class="fas fa-user-graduate"></i>
-                        <span>Student Records</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="violation_history.html">
-                        <i class="fas fa-history"></i>
-                        <span>Violation History</span>
-                    </a>
-                </li>
+                <li><a href="student_records.html"><i class="fas fa-user-graduate"></i><span>Student Records</span></a></li>
+                <li><a href="violation_history.html"><i class="fas fa-history"></i><span>Violation History</span></a></li>
             <h3>Discipline</h3>
-                <li>
-                    <a href="disciplinary_action.html">
-                        <i class="fas fa-gavel"></i>
-                        <span>Disciplinary Actions</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="risk_level.html">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <span>Risk Level Indicator</span>
-                    </a>
-                </li>
+                <li><a href="disciplinary_action.html"><i class="fas fa-gavel"></i><span>Disciplinary Actions</span></a></li>
+                <li><a href="risk_level.html"><i class="fas fa-exclamation-triangle"></i><span>Risk Level Indicator</span></a></li>
             <h3>Backup & Reports</h3>
-                <li>
-                    <a href="data_backup.html">
-                        <i class="fas fa-cloud-download-alt"></i>
-                        <span>Data Backup</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="import_data.html">
-                        <i class="fas fa-file-import"></i>
-                        <span>Import Data</span>
-                    </a>
-                </li>
+                <li><a href="data_backup.html"><i class="fas fa-cloud-download-alt"></i><span>Data Backup</span></a></li>
+                <li><a href="import_data.html"><i class="fas fa-file-import"></i><span>Import Data</span></a></li>
             <h3>System</h3>
-                <li>
-                    <a href="jassu_users.html" class="active">
-                        <i class="fas fa-user"></i>
-                        <span>Jassu User</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../index.html">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Log Out</span>
-                    </a>
-                </li>
+                <li><a href="jassu_users.html" class="active"><i class="fas fa-user"></i><span>Jassu User</span></a></li>
+                <li><a href="#"><i class="fas fa-sign-out-alt"></i><span>Log Out</span></a></li>
         </ul>
     </div>
 </div>
@@ -310,28 +166,28 @@
                 <div class="ju-stat-card">
                     <div class="ju-stat-icon blue"><i class="fas fa-users"></i></div>
                     <div>
-                        <div class="ju-stat-val" id="statTotal">0</div>
+                        <div class="ju-stat-val">4</div>
                         <div class="ju-stat-lbl">Total Users</div>
                     </div>
                 </div>
                 <div class="ju-stat-card">
                     <div class="ju-stat-icon blue2"><i class="fas fa-user-shield"></i></div>
                     <div>
-                        <div class="ju-stat-val" id="statAdmin">0</div>
+                        <div class="ju-stat-val">2</div>
                         <div class="ju-stat-lbl">Admins</div>
                     </div>
                 </div>
                 <div class="ju-stat-card">
                     <div class="ju-stat-icon red"><i class="fas fa-user-check"></i></div>
                     <div>
-                        <div class="ju-stat-val" id="statJassu">0</div>
+                        <div class="ju-stat-val">2</div>
                         <div class="ju-stat-lbl">Jassu Users</div>
                     </div>
                 </div>
                 <div class="ju-stat-card">
                     <div class="ju-stat-icon red2"><i class="fas fa-circle-check"></i></div>
                     <div>
-                        <div class="ju-stat-val" id="statActive">0</div>
+                        <div class="ju-stat-val">4</div>
                         <div class="ju-stat-lbl">Active Accounts</div>
                     </div>
                 </div>
@@ -347,14 +203,10 @@
                     <div class="ju-toolbar">
                         <div class="ju-search-box">
                             <i class="fas fa-search" style="font-size:11px"></i>
-                            <input type="text" id="searchInput" placeholder="Search name or username…" oninput="renderTable()">
+                            <span>Search name or username…</span>
                         </div>
-                        <select class="ju-select-box" id="roleFilter" onchange="renderTable()">
-                            <option value="all">All Roles</option>
-                            <option value="Admin">Admin</option>
-                            <option value="Jassu">Jassu</option>
-                        </select>
-                        <button class="ju-btn ju-btn-primary" onclick="openAddModal()">
+                        <div class="ju-select-box">All Roles</div>
+                        <button class="ju-btn ju-btn-primary">
                             <i class="fas fa-plus"></i> Add User
                         </button>
                     </div>
@@ -371,13 +223,62 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="userTableBody"></tbody>
+                        <tbody>
+                            <tr>
+                                <td class="ju-name-cell">Admin User</td>
+                                <td class="ju-mono">admin</td>
+                                <td class="ju-email">admin@mcc.edu.ph</td>
+                                <td><span class="ju-badge ju-badge-admin">Admin</span></td>
+                                <td><div class="ju-actions">
+                                    <button class="ju-btn ju-btn-ghost ju-btn-sm ju-btn-icon" title="Edit"><i class="fas fa-pen"></i></button>
+                                    <button class="ju-btn ju-btn-ghost ju-btn-sm ju-btn-icon" title="Change Password"><i class="fas fa-key"></i></button>
+                                    <button class="ju-btn ju-btn-danger ju-btn-sm ju-btn-icon" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                                </div></td>
+                            </tr>
+                            <tr>
+                                <td class="ju-name-cell">Maria Santos</td>
+                                <td class="ju-mono">msantos</td>
+                                <td class="ju-email">msantos@mcc.edu.ph</td>
+                                <td><span class="ju-badge ju-badge-jassu">Jassu</span></td>
+                                <td><div class="ju-actions">
+                                    <button class="ju-btn ju-btn-ghost ju-btn-sm ju-btn-icon" title="Edit"><i class="fas fa-pen"></i></button>
+                                    <button class="ju-btn ju-btn-ghost ju-btn-sm ju-btn-icon" title="Change Password"><i class="fas fa-key"></i></button>
+                                    <button class="ju-btn ju-btn-danger ju-btn-sm ju-btn-icon" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                                </div></td>
+                            </tr>
+                            <tr>
+                                <td class="ju-name-cell">Carlos Reyes</td>
+                                <td class="ju-mono">creyes</td>
+                                <td class="ju-email">creyes@mcc.edu.ph</td>
+                                <td><span class="ju-badge ju-badge-jassu">Jassu</span></td>
+                                <td><div class="ju-actions">
+                                    <button class="ju-btn ju-btn-ghost ju-btn-sm ju-btn-icon" title="Edit"><i class="fas fa-pen"></i></button>
+                                    <button class="ju-btn ju-btn-ghost ju-btn-sm ju-btn-icon" title="Change Password"><i class="fas fa-key"></i></button>
+                                    <button class="ju-btn ju-btn-danger ju-btn-sm ju-btn-icon" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                                </div></td>
+                            </tr>
+                            <tr>
+                                <td class="ju-name-cell">Ana Lim</td>
+                                <td class="ju-mono">alim</td>
+                                <td class="ju-email">alim@mcc.edu.ph</td>
+                                <td><span class="ju-badge ju-badge-admin">Admin</span></td>
+                                <td><div class="ju-actions">
+                                    <button class="ju-btn ju-btn-ghost ju-btn-sm ju-btn-icon" title="Edit"><i class="fas fa-pen"></i></button>
+                                    <button class="ju-btn ju-btn-ghost ju-btn-sm ju-btn-icon" title="Change Password"><i class="fas fa-key"></i></button>
+                                    <button class="ju-btn ju-btn-danger ju-btn-sm ju-btn-icon" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                                </div></td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
 
                 <div class="ju-pagination">
-                    <span id="paginationInfo"></span>
-                    <div class="ju-page-btns" id="pageBtns"></div>
+                    <span>Showing 1–4 of 4 users</span>
+                    <div class="ju-page-btns">
+                        <div class="ju-page-btn"><i class="fas fa-chevron-left" style="font-size:10px"></i></div>
+                        <div class="ju-page-btn active">1</div>
+                        <div class="ju-page-btn"><i class="fas fa-chevron-right" style="font-size:10px"></i></div>
+                    </div>
                 </div>
             </div>
 
@@ -385,122 +286,6 @@
     </div>
 </div>
 
-<!-- TOAST -->
-<div class="ju-toast-wrap" id="toastWrap"></div>
-
-<!-- ══ ADD / EDIT MODAL ══ -->
-<div class="ju-overlay" id="userModal">
-    <div class="ju-modal">
-        <div class="ju-modal-header">
-            <div class="ju-modal-title" id="modalTitle">Add User</div>
-            <div class="ju-modal-close" onclick="closeModal('userModal')"><i class="fas fa-times"></i></div>
-        </div>
-        <div class="ju-form-row">
-            <div class="ju-form-group">
-                <label>First Name</label>
-                <input type="text" id="fieldFirst" placeholder="e.g. Juan">
-            </div>
-            <div class="ju-form-group">
-                <label>Last Name</label>
-                <input type="text" id="fieldLast" placeholder="e.g. dela Cruz">
-            </div>
-        </div>
-        <div class="ju-form-group">
-            <label>Username</label>
-            <input type="text" id="fieldUsername" placeholder="e.g. jdelacruz">
-        </div>
-        <div class="ju-form-group">
-            <label>Email Address</label>
-            <input type="email" id="fieldEmail" placeholder="e.g. jdelacruz@mcc.edu.ph">
-        </div>
-        <div class="ju-form-group">
-            <label>Role</label>
-            <select id="fieldRole">
-                <option value="Admin">Admin</option>
-                <option value="Jassu">Jassu</option>
-            </select>
-        </div>
-        <div class="ju-form-group" id="passwordSection">
-            <label>Password</label>
-            <div class="ju-pass-wrap">
-                <input type="password" id="fieldPassword" placeholder="Enter password" oninput="checkStrength(this.value)">
-                <span class="ju-pass-toggle" onclick="togglePass('fieldPassword',this)"><i class="fas fa-eye"></i></span>
-            </div>
-            <div class="ju-strength-wrap" id="strengthWrap" style="display:none">
-                <div class="ju-strength-bar"><div class="ju-strength-fill" id="strengthFill"></div></div>
-                <div class="ju-strength-lbl" id="strengthLabel"></div>
-            </div>
-        </div>
-        <div class="ju-form-group" id="confirmSection">
-            <label>Confirm Password</label>
-            <div class="ju-pass-wrap">
-                <input type="password" id="fieldConfirm" placeholder="Re-enter password">
-                <span class="ju-pass-toggle" onclick="togglePass('fieldConfirm',this)"><i class="fas fa-eye"></i></span>
-            </div>
-        </div>
-        <div class="ju-modal-footer">
-            <button class="ju-btn ju-btn-ghost" onclick="closeModal('userModal')">Cancel</button>
-            <button class="ju-btn ju-btn-primary" id="modalSaveBtn" onclick="saveUser()">
-                <i class="fas fa-save"></i> Save User
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- ══ CHANGE PASSWORD MODAL ══ -->
-<div class="ju-overlay" id="changePassModal">
-    <div class="ju-modal">
-        <div class="ju-modal-header">
-            <div class="ju-modal-title">Change Password</div>
-            <div class="ju-modal-close" onclick="closeModal('changePassModal')"><i class="fas fa-times"></i></div>
-        </div>
-        <p style="font-size:12px;color:#4b5568;margin-bottom:18px;font-family:'Plus Jakarta Sans',sans-serif">
-            Updating password for <strong id="cpUsername"></strong>
-        </p>
-        <div class="ju-form-group">
-            <label>New Password</label>
-            <div class="ju-pass-wrap">
-                <input type="password" id="cpNewPass" placeholder="Enter new password" oninput="checkStrength2(this.value)">
-                <span class="ju-pass-toggle" onclick="togglePass('cpNewPass',this)"><i class="fas fa-eye"></i></span>
-            </div>
-            <div class="ju-strength-wrap" id="strengthWrap2" style="display:none">
-                <div class="ju-strength-bar"><div class="ju-strength-fill" id="strengthFill2"></div></div>
-                <div class="ju-strength-lbl" id="strengthLabel2"></div>
-            </div>
-        </div>
-        <div class="ju-form-group">
-            <label>Confirm New Password</label>
-            <div class="ju-pass-wrap">
-                <input type="password" id="cpConfirm" placeholder="Re-enter new password">
-                <span class="ju-pass-toggle" onclick="togglePass('cpConfirm',this)"><i class="fas fa-eye"></i></span>
-            </div>
-        </div>
-        <div class="ju-modal-footer">
-            <button class="ju-btn ju-btn-ghost" onclick="closeModal('changePassModal')">Cancel</button>
-            <button class="ju-btn ju-btn-primary" onclick="confirmChangePass()">
-                <i class="fas fa-key"></i> Update Password
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- ══ DELETE CONFIRM MODAL ══ -->
-<div class="ju-overlay" id="deleteModal">
-    <div class="ju-modal" style="max-width:360px">
-        <div class="ju-confirm-icon"><i class="fas fa-trash-alt"></i></div>
-        <div class="ju-confirm-text">
-            <h3>Delete Account?</h3>
-            <p>This will permanently remove <strong id="deleteTargetName"></strong>'s account. This action cannot be undone.</p>
-        </div>
-        <div class="ju-modal-footer" style="justify-content:center;margin-top:24px">
-            <button class="ju-btn ju-btn-ghost" onclick="closeModal('deleteModal')">Cancel</button>
-            <button class="ju-btn ju-btn-danger" onclick="confirmDelete()">
-                <i class="fas fa-trash-alt"></i> Delete
-            </button>
-        </div>
-    </div>
-</div>
-
-
+<script src="../Script/script.js"></script>
 </body>
 </html>
