@@ -293,4 +293,3 @@ window.deptBarChart = new Chart(deptCtx, {
     }
 });
 
-
