@@ -118,9 +118,6 @@ function updateMonthlyChart() {
 }
 
 
-// ════════════════════════════════════════════
-//  MINOR VS MAJOR LINE CHART
-// ════════════════════════════════════════════
 const mmCtx = document.getElementById('minorMajorChart').getContext('2d');
 new Chart(mmCtx, {
     type: 'line',
