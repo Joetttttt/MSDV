@@ -1,3 +1,4 @@
+/* ── NAVBAR ── */
 .navbar {
     background: #030357;
     border-bottom: 4px solid #b22222;
@@ -47,29 +48,6 @@
     gap: 12px;
 }
 
-.navbar-user {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.navbar-avatar {
-    width: 30px; height: 30px;
-    background: rgb(15, 15, 209);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: #fff;
-    flex-shrink: 0;
-}
-
-.navbar-username {
-    font-size: 0.78rem;
-    color: rgba(255,255,255,0.75);
-    font-weight: 500;
-}
-
 .btn-logout {
     display: flex;
     align-items: center;
@@ -95,6 +73,11 @@
     color: #fff;
 }
 
+/* ── REMOVE BANNER CIRCLES ── */
+.top-banner::before,
+.top-banner::after { display: none; }
+
+/* ── BODY & PAGE WRAP OVERRIDE ── */
 body { padding-top: 0; }
 
 .page-wrap {
@@ -103,11 +86,7 @@ body { padding-top: 0; }
     padding: 40px 18px 0;
 }
 
-.top-banner::before,
-.top-banner::after { display: none; }
-
 @media (max-width: 480px) {
     .navbar { padding: 0 14px; }
     .navbar-sub { display: none; }
-    .navbar-username { display: none; }
 }
