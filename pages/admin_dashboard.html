@@ -2,80 +2,194 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Your existing CSS (loaded last so it takes priority) -->
     <link rel="stylesheet" href="../CSS/admin_dashboard.css">
+
+    <style>
+        /* ── Pure-CSS responsive sidebar (no JS) ── */
+
+        /* Hide the checkbox */
+        #sidebar-toggle { display: none; }
+
+        /* Hamburger label – hidden on desktop */
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 1100;
+            background: var(--primary, #2563eb);
+            color: #fff;
+            border-radius: 6px;
+            width: 40px;
+            height: 40px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,.25);
+        }
+
+        /* Overlay label – hidden by default */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.45);
+            z-index: 1040;
+            cursor: pointer;
+        }
+
+        @media (max-width: 991.98px) {
+            .hamburger { display: flex; }
+
+            /* Sidebar off-screen by default */
+            .sidebar {
+                position: fixed !important;
+                left: -280px;
+                top: 0;
+                height: 100vh;
+                z-index: 1050;
+                transition: left .3s ease;
+                overflow-y: auto;
+            }
+
+            /* When checkbox is checked: show sidebar + overlay */
+            #sidebar-toggle:checked ~ .sidebar            { left: 0; }
+            #sidebar-toggle:checked ~ .sidebar-overlay   { display: block; }
+
+            /* Swap hamburger icon to X when open */
+            #sidebar-toggle:checked ~ .hamburger .fa-bars   { display: none; }
+            #sidebar-toggle:checked ~ .hamburger .fa-times  { display: inline; }
+            #sidebar-toggle:not(:checked) ~ .hamburger .fa-times { display: none; }
+
+            /* Main content full-width with top padding for hamburger */
+            .main-content {
+                margin-left: 0 !important;
+                width: 100% !important;
+                padding-top: 56px;
+            }
+
+            /* Stack chart panels vertically */
+            .chart-row { flex-direction: column !important; }
+            .chart-row .chart-panel { width: 100% !important; }
+            .chart-panel[style*="99"] { width: 100% !important; }
+
+            /* Cards: 2 per row on tablet */
+            .cards {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            /* Cards: 1 per row on phone */
+            .cards { grid-template-columns: 1fr !important; }
+            .navbar h1 { font-size: 1.1rem; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="sidebar">
+<!--
+    Pure-CSS sidebar toggle trick:
+    The hidden checkbox (#sidebar-toggle) acts as state.
+    Labels pointing to it act as buttons (hamburger + overlay).
+    CSS sibling selectors react to :checked state — zero JS.
+-->
+
+<input type="checkbox" id="sidebar-toggle">
+
+<!-- Hamburger button (label toggles the checkbox) -->
+<label class="hamburger" for="sidebar-toggle" aria-label="Toggle sidebar">
+    <i class="fas fa-bars"></i>
+    <i class="fas fa-times"></i>
+</label>
+
+<!-- Overlay (clicking it unchecks the checkbox, closing the sidebar) -->
+<label class="sidebar-overlay" for="sidebar-toggle" aria-label="Close sidebar"></label>
+
+<!-- ════════ SIDEBAR ════════ -->
+<div class="sidebar" id="sidebar">
     <div class="adm_logo">
-        <img src="../images/mccLogo.png" alt="">
+        <img src="../images/mccLogo.png" alt="MCC Logo">
         <div class="logotext">
             <h2>Admin Panel</h2>
             <p>MCC Student Violation System</p>
         </div>
     </div>
+
     <div class="sidebar_content">
         <ul>
             <h3>Overview</h3>
-                <li>
-                    <a href="admin_dashboard.html" class="active">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
+            <li>
+                <a href="admin_dashboard.html" class="active">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
             <h3>Students</h3>
-                <li>
-                    <a href="student_records.html">
-                        <i class="fas fa-user-graduate"></i>
-                        <span>Student Records</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="violation_history.html">
-                        <i class="fas fa-history"></i>
-                        <span>Violation History</span>
-                    </a>
-                </li>
+            <li>
+                <a href="student_records.html">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Student Records</span>
+                </a>
+            </li>
+            <li>
+                <a href="violation_history.html">
+                    <i class="fas fa-history"></i>
+                    <span>Violation History</span>
+                </a>
+            </li>
+
             <h3>Discipline</h3>
-                <li>
-                    <a href="disciplinary_action.html">
-                        <i class="fas fa-gavel"></i>
-                        <span>Disciplinary Actions</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="risk_level.html">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <span>Risk Level Indicator</span>
-                    </a>
-                </li>
+            <li>
+                <a href="disciplinary_action.html">
+                    <i class="fas fa-gavel"></i>
+                    <span>Disciplinary Actions</span>
+                </a>
+            </li>
+            <li>
+                <a href="risk_level.html">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Risk Level Indicator</span>
+                </a>
+            </li>
+
             <h3>Backup</h3>
-                <li>
-                    <a href="data_backup.html">
-                        <i class="fas fa-cloud-download-alt"></i>
-                        <span>Data Backup</span>
-                    </a>
-                </li>
+            <li>
+                <a href="data_backup.html">
+                    <i class="fas fa-cloud-download-alt"></i>
+                    <span>Data Backup</span>
+                </a>
+            </li>
+
             <h3>System</h3>
-                <li>
-                    <a href="jassu_users.html">
-                        <i class="fas fa-user"></i>
-                        <span>User Management</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../index.html">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Log Out</span>
-                    </a>
-                </li>
+            <li>
+                <a href="jassu_users.html">
+                    <i class="fas fa-user"></i>
+                    <span>User Management</span>
+                </a>
+            </li>
+            <li>
+                <a href="../index.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log Out</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
 
+<!-- ════════ MAIN CONTENT ════════ -->
 <div class="main-content">
     <nav class="navbar">
         <h1>Dashboard</h1>
@@ -84,7 +198,7 @@
 
     <div class="content">
 
-        <!-- OVERVIEW -->
+        <!-- OVERVIEW CARDS -->
         <p class="section-label">Overview</p>
         <div class="cards">
             <div class="stats blue">
@@ -128,6 +242,7 @@
                 </div>
                 <canvas id="monthlyChart" height="200"></canvas>
             </div>
+
             <div class="chart-panel">
                 <div class="panel-header">
                     <div>
@@ -140,7 +255,6 @@
         </div>
 
         <!-- VIOLATIONS PER DEPARTMENT -->
-     
         <div class="chart-panel" style="width: 99.2%;">
             <div class="panel-header">
                 <div>
@@ -152,14 +266,14 @@
                         <option value="2024">2024</option>
                         <option value="2023">2023</option>
                         <option value="2022">2022</option>
-                    </select>   
+                    </select>
                 </div>
             </div>
             <canvas id="deptLineChart" height="120"></canvas>
         </div>
 
-    </div> <!-- closes .content -->
-</div>     <!-- closes .main-content -->
+    </div><!-- /.content -->
+</div><!-- /.main-content -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="../Script/script.js"></script>
