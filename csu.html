@@ -185,14 +185,59 @@
             </div>
         </div>
 
-        <!-- E-SIGNATURE -->
+        <!-- STUDENT VERIFICATION -->
         <div class="section-block">
             <div class="section-head">
-                <div class="section-icon red"><i class="fas fa-pen-nib"></i></div>
-                <span class="section-name">Student's E-Signature</span>
+                <div class="section-icon blue"><i class="fas fa-shield-halved"></i></div>
+                <span class="section-name">Student Verification</span>
             </div>
+
+            <!-- CAMERA -->
+            <div class="field-group" style="margin-bottom:20px">
+                <label>Photo Capture <span class="req">*</span></label>
+                <div class="sig-box">
+                    <div class="sig-area" style="flex-direction:column; gap:16px; min-height:220px; position:relative;">
+                        <video id="camera-feed" autoplay playsinline style="display:none; width:100%; max-width:320px; border-radius:8px;"></video>
+                        <canvas id="camera-canvas" style="display:none; width:100%; max-width:320px; border-radius:8px;"></canvas>
+                        <div id="camera-placeholder" style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+                            <i class="fas fa-camera" style="font-size:2rem; opacity:0.4;"></i>
+                            <span style="font-size:0.85rem; opacity:0.6;">Camera preview will appear here</span>
+                        </div>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+                            <button type="button" id="btn-open-camera" onclick="openCamera()" style="
+                                display:flex; align-items:center; gap:6px;
+                                padding:8px 18px; border-radius:8px; border:none;
+                                background:#2563eb; color:#fff; font-size:0.85rem;
+                                cursor:pointer; font-family:inherit;">
+                                <i class="fas fa-video"></i> Open Camera
+                            </button>
+                            <button type="button" id="btn-capture" onclick="capturePhoto()" style="
+                                display:none; align-items:center; gap:6px;
+                                padding:8px 18px; border-radius:8px; border:none;
+                                background:#16a34a; color:#fff; font-size:0.85rem;
+                                cursor:pointer; font-family:inherit;">
+                                <i class="fas fa-circle-dot"></i> Capture
+                            </button>
+                            <button type="button" id="btn-retake" onclick="retakePhoto()" style="
+                                display:none; align-items:center; gap:6px;
+                                padding:8px 18px; border-radius:8px; border:none;
+                                background:#64748b; color:#fff; font-size:0.85rem;
+                                cursor:pointer; font-family:inherit;">
+                                <i class="fas fa-rotate-left"></i> Retake
+                            </button>
+                        </div>
+                    </div>
+                    <div class="sig-bar">
+                        <span class="sig-hint">
+                            <i class="fas fa-circle-info"></i> Please face the camera clearly for identity verification
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-SIGNATURE -->
             <div class="field-group" style="margin-bottom:0">
-                <label>Signature <span class="req">*</span></label>
+                <label>E-Signature <span class="req">*</span></label>
                 <div class="sig-box">
                     <div class="sig-area">
                         <i class="fas fa-signature"></i>
@@ -211,7 +256,7 @@
         </div>
 
         <!-- SUBMIT -->
-        <div class="submit-area">   
+        <div class="submit-area">
             <div class="note-text">
                 <i class="fas fa-circle-info"></i>&nbsp; By submitting this report, you confirm that all information provided is accurate and truthful.
             </div>
@@ -222,6 +267,45 @@
 
     </div>
 </div>
+
+<script>
+    let stream = null;
+
+    async function openCamera() {
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            const video = document.getElementById('camera-feed');
+            video.srcObject = stream;
+            video.style.display = 'block';
+            document.getElementById('camera-placeholder').style.display = 'none';
+            document.getElementById('btn-open-camera').style.display = 'none';
+            document.getElementById('btn-capture').style.display = 'flex';
+        } catch (err) {
+            alert('Unable to access camera. Please allow camera permissions.');
+        }
+    }
+
+    function capturePhoto() {
+        const video = document.getElementById('camera-feed');
+        const canvas = document.getElementById('camera-canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        video.style.display = 'none';
+        canvas.style.display = 'block';
+        document.getElementById('btn-capture').style.display = 'none';
+        document.getElementById('btn-retake').style.display = 'flex';
+        if (stream) stream.getTracks().forEach(t => t.stop());
+    }
+
+    function retakePhoto() {
+        const canvas = document.getElementById('camera-canvas');
+        canvas.style.display = 'none';
+        document.getElementById('btn-retake').style.display = 'none';
+        document.getElementById('btn-open-camera').style.display = 'flex';
+        document.getElementById('camera-placeholder').style.display = 'flex';
+    }
+</script>
 
 </body>
 </html>
