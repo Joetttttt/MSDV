@@ -1,287 +1,337 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="../CSS/admin_dashboard.css">
+body {
+    display: flex;
+    background-color: #f1f4f9;
+}
 
-    <style>
-        /* ── Hide the checkbox ── */
-        #sidebar-toggle { display: none; }
+.sidebar {
+    width: 270px;
+    height:100vh;
+    background: rgb(241, 241, 241);
+    color: white;
+    position: fixed;
+    display: flex; 
+    flex-direction: column;
+    box-shadow: 0 10px 5px rgba(0, 0, 0, 0.5);
+}
 
-        /* ── Hamburger: hidden on desktop ── */
-        .hamburger {
-            display: none;
-            position: fixed;
-            top: 12px;
-            left: 12px;
-            z-index: 1100;
-            background: #1a237e;
-            color: #fff;
-            border-radius: 6px;
-            width: 40px;
-            height: 40px;
-            font-size: 1.1rem;
-            cursor: pointer;
+.adm_logo{
+    display: flex;
+    border-bottom: 5px solid #a80606;
+    padding: 10px;
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.4);
+    background-color: #030357;
+}
+.adm_logo img{
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 50%;
+}
+.logotext h2{
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.logotext p{
+    font-size: 12px;
+    font-weight: 400;
+    color: #959799;
+}
+.logotext{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.main-content {
+    margin-left: 270px;
+    width: 100%;
+}
+
+.navbar {
+    background: #030357;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: 100%;
+    display: flex;
+    border-bottom: 5px solid #a80606;
+    z-index: 1000;
+}
+
+   
+
+.navbar h1 {
+    color: white;
+    font-size: 25px;
+    font-weight: 400;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.content{
+    margin-left: 10px;
+    margin-top: 80px;
+    height: 100vh;
+}
+
+::-webkit-scrollbar {
+    width: 1px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 60px;
+    }
+
+    .main-content {
+        margin-left: 60px;
+    }
+
+    .sidebar_content li a {
+        padding: 15px 10px;
+        text-align: center;
+    }
+
+    .sidebar_content h3 {
+        display: none;
+    }
+
+    .logout-btn {
+        padding: 20px 10px;
+    }
+}
+
+.sidebar_content {
+    flex: 1;                   
+    overflow-y: auto; 
+    
+}
+
+.sidebar_content ul {
+    list-style: none;
+    
+}
+.sidebar_content li a i{
+   margin-right: 6px;
+   font-size: 17px;
+}
+
+.sidebar_content h3 {
+    padding: 15px 20px;
+    font-size: 12px;
+    color: #796d00;
+    text-transform: uppercase;
+}
+
+
+
+.Logout{
+    width: 100%;
+    text-align: center;
+    border-top: 2px solid rgb(141, 5, 5);
+    box-shadow: 10px 20px 0 rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+.logout-btn{
+    background: #850404;
+    color: white;
+    border: none;
+    font-size: 15px;
+    align-items: center;
+    padding: 20px 98px;
+    width: 100%;    
+    box-sizing: border-box;
+}
+.logout-btn:hover {
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 20px 98px;
+}
+.sidebar_content ul li a{
+
+    margin: 6px;
+    display: block;
+    padding: 15px 20px;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 14px;
+}
+.sidebar_content ul li a:hover{
+    background-color: rgba(56, 56, 56, 0.13);
+    margin: 6px;    
+
+    transition: 0.4s ease;
+    
+}
+.sidebar_content li a.active {
+    background: rgba(56, 56, 56, 0.13);
+    border-left: 4px solid #bd0505;
+    padding-left: 16px;
+}
+ 
+
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-right: 9px;
+}
+
+.stats {
+    background: #ffffff;
+    border: 1px solid #dee2ec;
+    border-radius: 14px;
+    padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.stats:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 24px rgba(59, 91, 219, 0.08);
+}
+
+
+
+.stats.blue::after   { 
+    background: blue; 
+}
+.stats.red::after { 
+    background: red; 
+}
+.stats.yellow::after    { 
+    background: yellow; 
+}
+.stats.green::after  {  
+    background: green; 
+}
+
+.stat-card, .card-icon{
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    margin-bottom: 14px;
+}
+
+.stats.blue   .card-icon { 
+    background: rgba(59,91,219,0.10);  
+    color: blue ; 
+}
+.stats.red .card-icon {
+    background: rgba(197, 36, 36, 0.1);  
+    color: red; 
+}
+.stats.yellow .card-icon { 
+    background: rgba(193, 220, 38, 0.1);   
+    color: rgb(190, 190, 3); 
+}
+.stats.green .card-icon { 
+    background: rgba(5, 150, 29, 0.1);  
+    color: green; 
+}
+
+.stats .card-value {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.stats.blue   .card-value { 
+    color: blue; 
+}
+.stats.red .card-value { 
+    color: red; 
+}
+.stats.yellow    .card-value { 
+    color: rgb(190, 190, 3); 
+}
+.stats.green  .card-value { 
+    color: green; 
+}
+
+.stats .card-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #4b5568;
+}
+
+.section-label{
+    margin: 40px 10px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #9099b5;
+           
+}
+  
+
+
+
+ .chart-row {
+            display: grid;
+            grid-template-columns: 1.1fr 1.6fr;
+            gap: 13px;
+            margin-right: 9px;
+        }
+
+        .chart-panel {
+            background: #ffffff;
+            border: 1px solid #e2e6f0;
+            border-radius: 14px;
+            padding: 20px 22px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+
+        .panel-header {
+            display: flex;
             align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,.35);
+            justify-content: space-between;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        /* ── Overlay: hidden by default ── */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,.5);
-            z-index: 1040;
-            cursor: pointer;
+        .panel-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1a1d2e;
         }
 
-        /* ── fa-times hidden until open ── */
-        .hamburger .fa-times { display: none; }
-
-        @media (max-width: 991.98px) {
-
-            /* Show hamburger */
-            .hamburger { display: flex; }
-
-            /* Sidebar: fixed, off-screen left */
-            .sidebar {
-                position: fixed !important;
-                top: 0 !important;
-                left: -280px !important;
-                width: 260px !important;
-                height: 100vh !important;
-                z-index: 1050 !important;
-                transition: left .3s ease !important;
-                overflow-y: auto !important;
-            }
-
-            /* Main content: full width, no left offset */
-            .main-content {
-                margin-left: 0 !important;
-                width: 100% !important;
-                min-width: 0 !important;
-                padding-top: 56px !important;
-            }
-
-            /* ── Checked state: open sidebar + overlay ── */
-            #sidebar-toggle:checked ~ .wrapper .sidebar {
-                left: 0 !important;
-            }
-            #sidebar-toggle:checked ~ .wrapper .sidebar-overlay {
-                display: block;
-            }
-            #sidebar-toggle:checked ~ .hamburger .fa-bars  { display: none; }
-            #sidebar-toggle:checked ~ .hamburger .fa-times { display: inline; }
-
-            /* Charts stack */
-            .chart-row {
-                flex-direction: column !important;
-            }
-            .chart-row .chart-panel {
-                width: 100% !important;
-            }
-            .chart-panel[style] {
-                width: 100% !important;
-            }
-
-            /* Cards: 2 columns */
-            .cards {
-                display: grid !important;
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 12px !important;
-            }
+        .panel-sub {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 2px;
         }
-
-        @media (max-width: 575.98px) {
-            /* Cards: 1 column */
-            .cards {
-                grid-template-columns: 1fr !important;
-            }
-            .navbar h1 {
-                font-size: 1rem !important;
-            }
-        }
-    </style>
-</head>
-<body>
-
-<!-- Checkbox state holder (must be BEFORE hamburger label and .wrapper) -->
-<input type="checkbox" id="sidebar-toggle">
-
-<!-- Hamburger label (sibling of checkbox) -->
-<label class="hamburger" for="sidebar-toggle" aria-label="Toggle sidebar">
-    <i class="fas fa-bars"></i>
-    <i class="fas fa-times"></i>
-</label>
-
-<!-- Wrapper: contains overlay + sidebar + main-content as siblings -->
-<div class="wrapper" style="display:flex; min-height:100vh;">
-
-    <!-- Overlay label (inside wrapper so sidebar sibling selector works) -->
-    <label class="sidebar-overlay" for="sidebar-toggle" aria-label="Close sidebar"></label>
-
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-        <div class="adm_logo">
-            <img src="../images/mccLogo.png" alt="MCC Logo">
-            <div class="logotext">
-                <h2>Admin Panel</h2>
-                <p>MCC Student Violation System</p>
-            </div>
-        </div>
-        <div class="sidebar_content">
-            <ul>
-                <h3>Overview</h3>
-                <li>
-                    <a href="admin_dashboard.html" class="active">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <h3>Students</h3>
-                <li>
-                    <a href="student_records.html">
-                        <i class="fas fa-user-graduate"></i>
-                        <span>Student Records</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="violation_history.html">
-                        <i class="fas fa-history"></i>
-                        <span>Violation History</span>
-                    </a>
-                </li>
-                <h3>Discipline</h3>
-                <li>
-                    <a href="disciplinary_action.html">
-                        <i class="fas fa-gavel"></i>
-                        <span>Disciplinary Actions</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="risk_level.html">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <span>Risk Level Indicator</span>
-                    </a>
-                </li>
-                <h3>Backup</h3>
-                <li>
-                    <a href="data_backup.html">
-                        <i class="fas fa-cloud-download-alt"></i>
-                        <span>Data Backup</span>
-                    </a>
-                </li>
-                <h3>System</h3>
-                <li>
-                    <a href="jassu_users.html">
-                        <i class="fas fa-user"></i>
-                        <span>User Management</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../index.html">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Log Out</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div class="main-content">
-        <nav class="navbar">
-            <h1>Dashboard</h1>
-            <span id="liveDateBadge"></span>
-        </nav>
-
-        <div class="content">
-
-            <p class="section-label">Overview</p>
-            <div class="cards">
-                <div class="stats blue">
-                    <div class="card-icon"><i class="fas fa-user-graduate"></i></div>
-                    <div class="card-value">1,248</div>
-                    <div class="card-label">Total Students</div>
-                </div>
-                <div class="stats red">
-                    <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                    <div class="card-value">376</div>
-                    <div class="card-label">Total Violations</div>
-                </div>
-                <div class="stats yellow">
-                    <div class="card-icon"><i class="fas fa-clock"></i></div>
-                    <div class="card-value">54</div>
-                    <div class="card-label">Pending Actions</div>
-                </div>
-                <div class="stats green">
-                    <div class="card-icon"><i class="fas fa-check-circle"></i></div>
-                    <div class="card-value">298</div>
-                    <div class="card-label">Completed Cases</div>
-                </div>
-            </div>
-
-            <p class="section-label">Violation Trends</p>
-            <div class="chart-row">
-                <div class="chart-panel">
-                    <div class="panel-header">
-                        <div>
-                            <div class="panel-title">Monthly Violations</div>
-                            <div class="panel-sub">Recorded violation events per month</div>
-                        </div>
-                        <div class="filter-row">
-                            <select class="filter-select" id="yearFilter1" onchange="updateMonthlyChart()">
-                                <option value="2024">2024</option>
-                                <option value="2023">2023</option>
-                                <option value="2022">2022</option>
-                            </select>
-                        </div>
-                    </div>
-                    <canvas id="monthlyChart" height="200"></canvas>
-                </div>
-
-                <div class="chart-panel">
-                    <div class="panel-header">
-                        <div>
-                            <div class="panel-title">Minor vs Major</div>
-                            <div class="panel-sub">Offense type breakdown</div>
-                        </div>
-                    </div>
-                    <canvas id="minorMajorChart" height="140"></canvas>
-                </div>
-            </div>
-
-            <div class="chart-panel" style="width:99.2%;">
-                <div class="panel-header">
-                    <div>
-                        <div class="panel-title">Monthly by Department</div>
-                        <div class="panel-sub">SOT · SOB · SOE breakdown</div>
-                    </div>
-                    <div class="filter-row">
-                        <select class="filter-select" id="deptLineYear" onchange="updateDeptLineChart()">
-                            <option value="2024">2024</option>
-                            <option value="2023">2023</option>
-                            <option value="2022">2022</option>
-                        </select>
-                    </div>
-                </div>
-                <canvas id="deptLineChart" height="120"></canvas>
-            </div>
-
-        </div><!-- /.content -->
-    </div><!-- /.main-content -->
-
-</div><!-- /.wrapper -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="../Script/script.js"></script>
-
-</body>
-</html>
