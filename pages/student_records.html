@@ -6,16 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Records</title>
     <link rel="stylesheet" href="../CSS/admin_dashboard.css">
-
-    <!-- ══════════════════════════════════════
-         STUDENT RECORDS PAGE CSS
-         All classes prefixed with .stdr-
-         Paste this entire <style> block into
-         your main CSS file as-is.
-    ══════════════════════════════════════ -->
     <style>
+        .stdr-btn-add {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #0000cc;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.18s;
+        }
 
-
+        .stdr-btn-add:hover { background: #00009a; }
     </style>
 </head>
 <body>
@@ -79,6 +86,7 @@
                     <option value="4th Year">4th Year</option>
                 </select>
                 <button class="stdr-btn-outline">Reset</button>
+                <button class="stdr-btn-add"><i class="fas fa-plus"></i> Add Student</button>
             </div>
         </div>
 
