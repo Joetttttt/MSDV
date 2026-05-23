@@ -7,6 +7,118 @@
     <link rel="stylesheet" href="CSS/CSU_pannel.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
     <title>Jassu - Student Violation Report</title>
+    <style>
+        .navbar {
+            background: #0a0f3d;
+            border-bottom: 4px solid #b22222;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .navbar-logo {
+            width: 32px; height: 32px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .navbar-title {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .navbar-sub {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.45);
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .navbar-user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar-avatar {
+            width: 30px; height: 30px;
+            background: #0000cc;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .navbar-username {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.75);
+            font-weight: 500;
+        }
+
+        .btn-logout {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: 1.5px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.8);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 5px 13px;
+            border-radius: 7px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.18s, border-color 0.18s, color 0.18s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-logout:hover {
+            background: #cc0000;
+            border-color: #cc0000;
+            color: #fff;
+        }
+
+        body { padding-top: 0; }
+
+        .page-wrap {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 40px 18px 0;
+        }
+
+        @media (max-width: 480px) {
+            .navbar { padding: 0 14px; }
+            .navbar-sub { display: none; }
+            .navbar-username { display: none; }
+        }
+    </style>
 </head>
 <body>
 
