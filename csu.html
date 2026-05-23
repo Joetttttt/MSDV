@@ -7,8 +7,140 @@
     <link rel="stylesheet" href="CSS/CSU_pannel.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
     <title>Jassu - Student Violation Report</title>
+    <style>
+        .navbar {
+            background: #0a0f3d;
+            border-bottom: 4px solid #b22222;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .navbar-logo {
+            width: 32px; height: 32px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .navbar-title {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .navbar-sub {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.45);
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .navbar-user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar-avatar {
+            width: 30px; height: 30px;
+            background: #0000cc;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .navbar-username {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.75);
+            font-weight: 500;
+        }
+
+        .btn-logout {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: 1.5px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.8);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 5px 13px;
+            border-radius: 7px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.18s, border-color 0.18s, color 0.18s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-logout:hover {
+            background: #cc0000;
+            border-color: #cc0000;
+            color: #fff;
+        }
+
+        body { padding-top: 0; }
+
+        .page-wrap {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 40px 18px 0;
+        }
+
+        @media (max-width: 480px) {
+            .navbar { padding: 0 14px; }
+            .navbar-sub { display: none; }
+            .navbar-username { display: none; }
+        }
+    </style>
 </head>
 <body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a class="navbar-brand" href="#">
+        <div class="navbar-logo"><i class="fas fa-shield-halved"></i></div>
+        <div>
+            <div class="navbar-title">Admin Panel</div>
+            <div class="navbar-sub">MCC Student Violation System</div>
+        </div>
+    </a>
+    <div class="navbar-right">
+        <div class="navbar-user">
+            <div class="navbar-avatar">A</div>
+            <span class="navbar-username">Admin</span>
+        </div>
+        <a href="#" class="btn-logout">
+            <i class="fas fa-right-from-bracket"></i> Logout
+        </a>
+    </div>
+</nav>
 
 <div class="page-wrap">
 
@@ -33,7 +165,7 @@
             <div class="step-pill"></div>
         </div>
 
-        <!-- STUDENT & ACADEMIC INFORMATION (MERGED) -->
+        <!-- STUDENT INFORMATION -->
         <div class="section-block">
             <div class="section-head">
                 <div class="section-icon blue"><i class="fas fa-user"></i></div>
@@ -79,46 +211,16 @@
                 <label>Minor Offenses</label>
             </div>
             <div class="check-grid">
-                <div class="check-item">
-                    <input type="checkbox" id="m1">
-                    <label for="m1">Disruptive Behavior</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="m2">
-                    <label for="m2">Littering</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="m3">
-                    <label for="m3">Dress Code</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="m4">
-                    <label for="m4">Unapproved Absences</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="m5">
-                    <label for="m5">Inappropriate Language</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="m6">
-                    <label for="m6">Unauthorized Use of College Property</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="m7">
-                    <label for="m7">Smoking on Campus</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="m8">
-                    <label for="m8">Failure to Display ID</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="m9">
-                    <label for="m9">Noise Violations</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="m10">
-                    <label for="m10">Minor Vandalism</label>
-                </div>
+                <div class="check-item"><input type="checkbox" id="m1"><label for="m1">Disruptive Behavior</label></div>
+                <div class="check-item"><input type="checkbox" id="m2"><label for="m2">Littering</label></div>
+                <div class="check-item"><input type="checkbox" id="m3"><label for="m3">Dress Code</label></div>
+                <div class="check-item"><input type="checkbox" id="m4"><label for="m4">Unapproved Absences</label></div>
+                <div class="check-item"><input type="checkbox" id="m5"><label for="m5">Inappropriate Language</label></div>
+                <div class="check-item"><input type="checkbox" id="m6"><label for="m6">Unauthorized Use of College Property</label></div>
+                <div class="check-item"><input type="checkbox" id="m7"><label for="m7">Smoking on Campus</label></div>
+                <div class="check-item"><input type="checkbox" id="m8"><label for="m8">Failure to Display ID</label></div>
+                <div class="check-item"><input type="checkbox" id="m9"><label for="m9">Noise Violations</label></div>
+                <div class="check-item"><input type="checkbox" id="m10"><label for="m10">Minor Vandalism</label></div>
             </div>
 
             <!-- MAJOR OFFENSES -->
@@ -126,62 +228,20 @@
                 <label>Major Offenses</label>
             </div>
             <div class="check-grid">
-                <div class="check-item">
-                    <input type="checkbox" id="j1">
-                    <label for="j1">Academic Dishonesty</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="j2">
-                    <label for="j2">Theft</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="j3">
-                    <label for="j3">Physical Violence</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="j4">
-                    <label for="j4">Substance Abuse</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="j5">
-                    <label for="j5">Harassment</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="j6">
-                    <label for="j6">Unauthorized Entry</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="j7">
-                    <label for="j7">Forgery</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="j8">
-                    <label for="j8">Moral Infractions</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="j9">
-                    <label for="j9">Weapons Possession</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="j10">
-                    <label for="j10">Cyber Bullying</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="j11">
-                    <label for="j11">Hazing</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="j12">
-                    <label for="j12">Major Dishonesty</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="j13">
-                    <label for="j13">Extortion</label>
-                </div>
-                <div class="check-item">
-                    <input type="checkbox" id="j14">
-                    <label for="j14">Sexual Misconduct</label>
-                </div>
+                <div class="check-item"><input type="checkbox" id="j1"><label for="j1">Academic Dishonesty</label></div>
+                <div class="check-item"><input type="checkbox" id="j2"><label for="j2">Theft</label></div>
+                <div class="check-item"><input type="checkbox" id="j3"><label for="j3">Physical Violence</label></div>
+                <div class="check-item"><input type="checkbox" id="j4"><label for="j4">Substance Abuse</label></div>
+                <div class="check-item"><input type="checkbox" id="j5"><label for="j5">Harassment</label></div>
+                <div class="check-item"><input type="checkbox" id="j6"><label for="j6">Unauthorized Entry</label></div>
+                <div class="check-item"><input type="checkbox" id="j7"><label for="j7">Forgery</label></div>
+                <div class="check-item"><input type="checkbox" id="j8"><label for="j8">Moral Infractions</label></div>
+                <div class="check-item"><input type="checkbox" id="j9"><label for="j9">Weapons Possession</label></div>
+                <div class="check-item"><input type="checkbox" id="j10"><label for="j10">Cyber Bullying</label></div>
+                <div class="check-item"><input type="checkbox" id="j11"><label for="j11">Hazing</label></div>
+                <div class="check-item"><input type="checkbox" id="j12"><label for="j12">Major Dishonesty</label></div>
+                <div class="check-item"><input type="checkbox" id="j13"><label for="j13">Extortion</label></div>
+                <div class="check-item"><input type="checkbox" id="j14"><label for="j14">Sexual Misconduct</label></div>
             </div>
         </div>
 
